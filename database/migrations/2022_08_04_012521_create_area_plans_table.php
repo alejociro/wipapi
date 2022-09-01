@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('area_plans', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('week',55);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('area_id');
+            $table->string('question');
+            $table->json('orientations');
+            $table->json('adaptations');
+            $table->timestamp('initial_date')->nullable();
+            $table->timestamp('end_date')->nullable();
+            $table->timestamps();
+
+            $table->foreign('user_id')
+                ->on('users')
+                ->references('id');
+            $table->foreign('area_id')
+                ->on('areas')
+                ->references('id');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('area_plans');
+    }
+};
