@@ -2,6 +2,9 @@
 
 namespace App\Actions;
 
+use App\Models\ActiviesCreativeAgenda;
+use App\Models\ActivitiesAreaPlan;
+use App\Models\AnnexesAreaPlan;
 use App\Models\AreaPlan;
 use App\Models\AreaPlanClone;
 use App\Models\PlanCloneActivitie;
@@ -10,85 +13,95 @@ use App\Models\PlanCloneAnnexe;
 use App\Models\PlanCloneCreativeAgenda;
 use App\Models\PlanCloneReference;
 use App\Models\PlanCloneTask;
+use App\Models\PlanCreativeAgenda;
+use App\Models\ReferencesAreaPlan;
+use App\Models\TasksAreaPlan;
 
 class CloneAreaPlanAction extends Action
 {
     public function execute(): self
     {
+        $planMain = AreaPlan::find($this->data['area_plan_id']);
         $this->setModel(new AreaPlanClone());
-//        $this->model->question = $this->data['question'];
-//        $this->model->orientations = json_encode($this->data['orientations'], true);
-//        $this->model->adaptations = json_encode($this->data['adaptations'], true);
+        $this->model->question = $planMain->question;
+        $this->model->orientations = $planMain->orientations;
+        $this->model->adaptations = $planMain->adaptations;
         $this->model->user_clone = $this->data['user_id'];
         $this->model->group_id = $this->data['group_id'];
         $this->model->area_plan_id = $this->data['area_plan_id'];
         $this->model->save();
 
-//        $this->tasks();
-//        $this->activities();
-//        $this->annexes();
-//        $this->references();
-//        $this->creativeAgenda();
+        $this->tasks();
+        $this->activities();
+        $this->annexes();
+        $this->references();
+        $this->creativeAgenda();
 
         return $this;
     }
 
     public function tasks(): void
     {
-        foreach ($this->data['tasks'] as $taskInfo) {
-            $task = new PlanCloneTask();
-            $task->area_plan_clone_id = $this->model->getKey();
-            $task->title = $taskInfo['title'];
-            $task->description = $taskInfo['description'];
-            $task->save();
+        $tasks = TasksAreaPlan::all()->where('area_plan_id', $this->data['area_plan_id']);
+        foreach ($tasks as $task) {
+            $taskClone = new PlanCloneTask();
+            $taskClone->area_plan_clone_id = $this->model->getKey();
+            $taskClone->title = $task->title;
+            $taskClone->description = $task->description;
+            $taskClone->save();
         }
     }
 
     public function activities(): void
     {
-        foreach ($this->data['activities'] as $activityInfo){
-            $activity = new PlanCloneActivitie();
-            $activity->title = $activityInfo['title'];
-            $activity->description = $activityInfo['description'];
-            $activity->area_plan_clone_id = $this->model->getKey();
-            $activity->save();
+        $activities = ActivitiesAreaPlan::all()->where('area_plan_id', $this->data['area_plan_id']);
+        foreach ($activities as $activity){
+            $activityClone = new PlanCloneActivitie();
+            $activityClone->title = $activity->title;
+            $activityClone->description = $activity->description;
+            $activityClone->area_plan_clone_id = $this->model->getKey();
+            $activityClone->save();
         };
     }
 
     public function annexes(): void
     {
-        foreach ($this->data['annexes'] as $annexInfo){
-            $annex = new PlanCloneAnnexe();
-            $annex->title = $annexInfo['title'];
-            $annex->type = $annexInfo['type'];
-            $annex->value = $annexInfo['value'];
-            $annex->area_plan_clone_id = $this->model->getKey();
-            $annex->save();
+        $annexes = AnnexesAreaPlan::all()->where('area_plan_id', $this->data['area_plan_id']);
+        foreach ($annexes as $annex){
+            $annexClone = new PlanCloneAnnexe();
+            $annexClone->title = $annex->title;
+            $annexClone->type = $annex->type;
+            $annexClone->value = $annex->value;
+            $annexClone->area_plan_clone_id = $this->model->getKey();
+            $annexClone->save();
         };
     }
 
     public function references(): void
     {
-        foreach ($this->data['references'] as $referenceInfo){
-            $reference = new PlanCloneReference();
-            $reference->title = $referenceInfo['title'];
-            $reference->value = $referenceInfo['value'];
-            $reference->author = $referenceInfo['author'];
-            $reference->area_plan_clone_id = $this->model->getKey();
-            $reference->save();
+        $references = ReferencesAreaPlan::all()->where('area_plan_id', $this->data['area_plan_id']);
+        foreach ($references as $reference){
+            $referenceClone = new PlanCloneReference();
+            $referenceClone->title = $reference->title;
+            $referenceClone->value = $reference->value;
+            $referenceClone->author = $reference->author;
+            $referenceClone->area_plan_clone_id = $this->model->getKey();
+            $referenceClone->save();
         }
     }
 
     public function creativeAgenda(): void
     {
-        $creativeAngeda = new PlanCloneCreativeAgenda();
-        $creativeAngeda->area_plan_clone_id = $this->model->getKey();
-        $creativeAngeda->save();
-        foreach ($this->data['activiesPlanCreative'] as $creativeInfo){
+        $creativeAgenda = new PlanCloneCreativeAgenda();
+        $creativeAgenda->area_plan_clone_id = $this->model->getKey();
+        $creativeAgenda->save();
+        $agendaId = PlanCreativeAgenda::first()->where('area_plan_id', $this->data['area_plan_id'])
+        $activities = $agendaId->activities();
+        foreach ($activities as $activity){
             $creativityActivity = new PlanCloneActivitiesCreativeAgenda();
-            $creativeAngeda->clone_agenda_id = $creativeAngeda->getKey();
-            $creativityActivity->title = $creativeInfo['title'];
-            $creativityActivity->description = $creativeInfo['description'];
+            $creativityActivity->title = $activity['title'];
+            $creativityActivity->description = $activity['description'];
+            $creativityActivity->clone_agenda_id = $creativeAgenda->getKey();
             $creativityActivity->save();
         }
     }

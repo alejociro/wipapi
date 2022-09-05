@@ -15,5 +15,5 @@ Route::apiResource('area-plan',AreaPlanController::class);
 Route::get('indicators', [IndicatorsController::class, 'index'])->name('indicators.index');
 Route::get('competences', [CompetencesController::class, 'index'])->name('competences.index');
 Route::get('topics', [TopicsController::class, 'index'])->name('topics.index');
-
+Route::post('area-plan-clone',[AreaPlanController::class, 'clone']);
 

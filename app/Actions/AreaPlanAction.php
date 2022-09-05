@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Models\ActiviesCreativeAgenda;
 use App\Models\ActivitiesAreaPlan;
 use App\Models\AnnexesAreaPlan;
 use App\Models\AreaPlan;
@@ -11,6 +12,7 @@ use App\Models\PlanIndicator;
 use App\Models\RecommendationsAreaPlan;
 use App\Models\ReferencesAreaPlan;
 use App\Models\TasksAreaPlan;
+use App\Models\TopicsAreaPlan;
 
 class AreaPlanAction extends Action
 {
@@ -22,7 +24,8 @@ class AreaPlanAction extends Action
         $this->model->user_id = $this->data['user_id'];
         $this->model->area_id = $this->data['area_id'];
         $this->model->question = $this->data['question'];
-        $this->model->competences = $this->data['competences'];
+        $this->model->initial_date = $this->data['initial_date'];
+        $this->model->end_date = $this->data['end_date'];
         $this->model->orientations = json_encode($this->data['orientations'], true);
         $this->model->adaptations = json_encode($this->data['adaptations'], true);
         $this->model->save();
@@ -33,8 +36,8 @@ class AreaPlanAction extends Action
         $this->activities();
         $this->annexes();
         $this->references();
-        $this->recommendations();
         $this->creativeAgenda();
+        $this->topics();
 
         return $this;
     }
@@ -105,28 +108,29 @@ class AreaPlanAction extends Action
         }
     }
 
-    public function recommendations(): void
-    {
-        foreach ($this->data['recommendations'] as $recommendationInfo){
-            $recommendation = new RecommendationsAreaPlan();
-            $recommendation->title = $recommendationInfo['title'];
-            $recommendation->description = $recommendationInfo['description'];
-            $recommendation->area_plan_id = $this->model->getKey();
-            $recommendation->save();
-        }
-    }
-
     public function creativeAgenda(): void
     {
         $creativeAngeda = new PlanCreativeAgenda();
         $creativeAngeda->area_plan_id = $this->model->getKey();
         $creativeAngeda->save();
         foreach ($this->data['activiesPlanCreative'] as $creativeInfo){
-            $creativityActivity = new ActivitiesAreaPlan();
-            $creativeAngeda->plan_creative_agenda_id = $creativeAngeda->getKey();
+            $creativityActivity = new ActiviesCreativeAgenda();
+            $creativityActivity->plan_creative_agenda_id = $creativeAngeda->getKey();
             $creativityActivity->title = $creativeInfo['title'];
             $creativityActivity->description = $creativeInfo['description'];
             $creativityActivity->save();
+        }
+    }
+
+    public function topics(): void
+    {
+        foreach ($this->data['performance_topics'] as $topicInfo) {
+            $topic = new TopicsAreaPlan();
+            $topic->area_plan_id = $this->model->getKey();
+            $topic->topic_id = $topicInfo['topic_id'];
+            $topic->ideas = $topicInfo['ideas'];
+            $topic->description = $topicInfo['description'];
+            $topic->save();
         }
     }
 }

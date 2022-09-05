@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\AreaPlanAction;
+use App\Actions\CloneAreaPlanAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AreaPlanCloneRequest;
 use App\Http\Requests\AreaPlanRequest;
 use App\Http\Resources\Api\AreaPlanResource;
 use App\Http\Resources\Api\AreaPlansResource;
@@ -14,10 +16,10 @@ class AreaPlanController extends Controller
 {
     public function index(Request $request)
     {
-        $plans = AreaPlan::where('description', 'like', '%' . $request->get('search') . '%')
+        $plans = AreaPlan::where('name', 'like', '%' . $request->get('search') . '%')
             ->get();
 
-        AreaPlansResource::collection($plans);
+       return AreaPlansResource::collection($plans);
     }
 
     public function store(AreaPlanRequest $request, AreaPlanAction $action)
@@ -39,7 +41,8 @@ class AreaPlanController extends Controller
 
     public function show($id)
     {
-        return AreaPlanResource::collection(AreaPlan::find($id));
+     $areaPlan = AreaPlan::find($id);
+      return  AreaPlanResource::make($areaPlan);
     }
 
     /**
@@ -74,5 +77,21 @@ class AreaPlanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function clone(AreaPlanCloneRequest $request, CloneAreaPlanAction $action)
+    {
+        $areaPlanClone = $action->setData($request->validated())->execute()->getModel();
+
+        return response()->json(
+            [
+                'status' => [
+                    'status' => 'OK',
+                    'reason' => 'OK'
+                ],
+                'data' => [
+                    'id' => $areaPlanClone->getKey()
+                ]
+            ]);
     }
 }

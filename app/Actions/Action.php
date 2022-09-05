@@ -33,6 +33,4 @@ abstract class Action
 
         return $this;
     }
-
-
 }

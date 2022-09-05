@@ -19,8 +19,8 @@ class AreaPlansResource extends JsonResource
             'week' => $this->week,
             'user' => $this->user_id,
             'area' => $this->area,
-            'initial_date' => $this->initial_date->format('Y-m-d h:m:s'),
-            'end_date' => $this->end_date->format('Y-m-d h:m:s'),
+            'initial_date' => $this->initial_date,
+            'end_date' => $this->end_date,
             'createdAt' => $this->created_at->format('Y-m-d h:m:s'),
             'updatedAt' => $this->updated_at->format('Y-m-d h:m:s')
         ];

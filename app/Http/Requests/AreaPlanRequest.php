@@ -14,14 +14,17 @@ class AreaPlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'week' => 'required',
+            'name' => 'required|string',
+            'week' => 'required|string',
             'user_id' => 'required',
             'area_id' => 'required',
             'question' => 'required|string',
-            'competences' => 'required|string',
+            'end_date' => 'required',
+            'initial_date' => 'required',
+            'performance_competences' => 'required',
+            'performance_competences*' => 'required|integer|exists:indicators,id' ,
             'orientations' => 'required',
-            'adaptations' => 'required|string',
+            'adaptations' => 'required',
             'performance_indicators' => 'required',
             'performance_indicators.*' => 'required|integer|exists:indicators,id' ,
             'tasks' => 'required',
@@ -47,11 +50,14 @@ class AreaPlanRequest extends FormRequest
             'references.*.author' => 'required|string',
             'references.*area_plan_id' => 'required',
             'activiesPlanCreative' => 'required',
-            'recommendations' => 'required',
-            'recommendations.*' => 'required',
-            'recommendations.*.title' => 'required|string',
-            'recommendations.*.description' => 'required|string',
-            'recommendations.*area_plan_id' => 'required'
+            'activiesPlanCreative.*' => 'required',
+            'activiesPlanCreative.*.title' => 'required',
+            'activiesPlanCreative.*.description' => 'required',
+            'performance_topics' => 'required',
+            'performance_topics.*' => 'required',
+            'performance_topics.*.topic_id' => 'required',
+            'performance_topics.*.ideas' => 'required|string',
+            'performance_topics.*.description' => 'required',
         ];
     }
 }
