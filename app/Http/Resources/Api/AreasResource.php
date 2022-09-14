@@ -15,8 +15,10 @@ class AreasResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key' => $this->getKey(),
-            'label' => $this->name
+            'id' => $this->getKey(),
+            'name' => $this->name,
+            'signatures' => $this->subjects,
+            'grade' => $this->grade,
         ];
     }
 }

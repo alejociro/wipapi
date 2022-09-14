@@ -14,7 +14,7 @@ class Grade extends Model
         'name',
     ];
 
-    public function area(): HasMany
+    public function areas(): HasMany
     {
         return $this->hasMany(Area::class);
     }

@@ -23,7 +23,7 @@ class Area extends Model
 
     public function grade(): BelongsTo
     {
-        return $this->belongsTo(Area::class);
+        return $this->belongsTo(Grade::class);
     }
 
     public function areaPlans(): HasMany

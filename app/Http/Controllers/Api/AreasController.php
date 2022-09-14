@@ -18,4 +18,9 @@ class AreasController extends Controller
 
         return AreasResource::collection($areas);
     }
+
+    public function show(Area $area): AreasResource
+    {
+        return AreasResource::make($area);
+    }
 }

@@ -19,5 +19,7 @@ Route::get('area-plan/{area}/competences', [CompetencesController::class, 'index
 Route::get('area-plan/{area}/topics', [TopicsController::class, 'index'])->name('topics.index');
 Route::get('grades/{grade}/areas', [AreasController::class, 'index'])->name('areas.index');
 Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
+Route::get('grades/{grade}', [GradesController::class, 'show'])->name('grades.show');
+Route::get('areas/{area}', [AreasController::class, 'show'])->name('areas.show');
 Route::post('area-plan-clone',[AreaPlanController::class, 'clone']);
 
