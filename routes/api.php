@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AreaPlanController;
+use App\Http\Controllers\Api\AreasController;
 use App\Http\Controllers\Api\CompetencesController;
+use App\Http\Controllers\Api\GradesController;
 use App\Http\Controllers\Api\IndicatorsController;
 use App\Http\Controllers\Api\TopicsController;
 use Illuminate\Http\Request;
@@ -12,8 +14,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('area-plan',AreaPlanController::class);
-Route::get('indicators', [IndicatorsController::class, 'index'])->name('indicators.index');
-Route::get('competences', [CompetencesController::class, 'index'])->name('competences.index');
-Route::get('topics', [TopicsController::class, 'index'])->name('topics.index');
+Route::get('area-plan/{area}/indicators', [IndicatorsController::class, 'index'])->name('indicators.index');
+Route::get('area-plan/{area}/competences', [CompetencesController::class, 'index'])->name('competences.index');
+Route::get('area-plan/{area}/topics', [TopicsController::class, 'index'])->name('topics.index');
+Route::get('grades/{grade}/areas', [AreasController::class, 'index'])->name('areas.index');
+Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
 Route::post('area-plan-clone',[AreaPlanController::class, 'clone']);
 

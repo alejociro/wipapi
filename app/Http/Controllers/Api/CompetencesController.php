@@ -12,7 +12,7 @@ class CompetencesController extends Controller
 {
     public function index(Request $request, Area $area)
     {
-        $competences = Competence::with('subjects', fn($query) => $query->where('area_id', $area->getKey()))
+        $competences = Competence::whereBelongsTo($area->subjects)
             ->where('description', 'like', '%' . $request->get('search') . '%')
             ->get();
 

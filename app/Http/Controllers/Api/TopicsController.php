@@ -12,8 +12,8 @@ class TopicsController extends Controller
 {
     public function index(Request $request, Area $area)
     {
-        $topics = Topic::with('subjects', fn($query) => $query->where('area_id', $area->getKey()))
-            ->where('description', 'like', '%' . $request->get('search') . '%')
+        $topics = Topic::whereBelongsTo($area->subjects)
+            ->where('name', 'like', '%' . $request->get('search') . '%')
             ->get();
 
         return TopicsResource::collection($topics);

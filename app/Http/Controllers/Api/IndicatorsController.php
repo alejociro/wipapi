@@ -11,8 +11,9 @@ use Illuminate\Http\Request;
 
 class IndicatorsController extends Controller
 {
-    public function index(Request $request, Area $area){
-        $indicators = Indicator::with('subjets', fn($query) => $query->where('area_id', $area->getKey()))
+    public function index(Request $request, Area $area)
+    {
+        $indicators = Indicator::whereBelongsTo($area->subjects)
             ->where('description', 'like', '%' . $request->get('search') . '%')
             ->get();
 

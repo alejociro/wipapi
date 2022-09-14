@@ -11,7 +11,9 @@ class Indicator extends Model
     use HasFactory;
 
     protected $fillable = [
-      'type'
+        'subject_id',
+        'type',
+        'description'
     ];
 
     public function subject(): BelongsTo

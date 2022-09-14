@@ -95,7 +95,7 @@ class CloneAreaPlanAction extends Action
         $creativeAgenda = new PlanCloneCreativeAgenda();
         $creativeAgenda->area_plan_clone_id = $this->model->getKey();
         $creativeAgenda->save();
-        $agendaId = PlanCreativeAgenda::first()->where('area_plan_id', $this->data['area_plan_id'])
+        $agendaId = PlanCreativeAgenda::first()->where('area_plan_id', $this->data['area_plan_id']);
         $activities = $agendaId->activities();
         foreach ($activities as $activity){
             $creativityActivity = new PlanCloneActivitiesCreativeAgenda();

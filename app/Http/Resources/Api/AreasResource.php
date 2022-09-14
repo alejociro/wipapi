@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CompetencesResource extends JsonResource
+class AreasResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,7 @@ class CompetencesResource extends JsonResource
     {
         return [
             'key' => $this->getKey(),
-            'label' => $this->description,
+            'label' => $this->name
         ];
     }
 }
