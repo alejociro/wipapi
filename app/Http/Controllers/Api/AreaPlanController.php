@@ -9,14 +9,26 @@ use App\Http\Requests\AreaPlanCloneRequest;
 use App\Http\Requests\AreaPlanRequest;
 use App\Http\Resources\Api\AreaPlanResource;
 use App\Http\Resources\Api\AreaPlansResource;
+use App\Models\Area;
 use App\Models\AreaPlan;
+use App\Models\Grade;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AreaPlanController extends Controller
 {
     public function index(Request $request)
     {
         $plans = AreaPlan::where('name', 'like', '%' . $request->get('search') . '%')
+            ->get();
+
+       return AreaPlansResource::collection($plans);
+    }
+
+    public function indexByGrade(Request $request, Area $area): AnonymousResourceCollection
+    {
+        $plans = AreaPlan::where('name', 'like', '%' . $request->get('search') . '%')
+            ->where('area_id', $area->getKey())
             ->get();
 
        return AreaPlansResource::collection($plans);

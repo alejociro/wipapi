@@ -16,11 +16,13 @@ class AreaPlansResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'name' => $this->name,
             'week' => $this->week,
-            'user' => $this->user_id,
+            'status' => $this->initial_date >= now() && $this->end_date <= now() ? 'Activo' : 'Expirado',
+            'author' => $this->user,
             'area' => $this->area,
-            'initial_date' => $this->initial_date,
-            'end_date' => $this->end_date,
+            'startDate' => $this->initial_date,
+            'endDate' => $this->end_date,
             'createdAt' => $this->created_at->format('Y-m-d h:m:s'),
             'updatedAt' => $this->updated_at->format('Y-m-d h:m:s')
         ];
