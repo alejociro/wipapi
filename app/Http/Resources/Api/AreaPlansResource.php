@@ -19,7 +19,7 @@ class AreaPlansResource extends JsonResource
             'name' => $this->name,
             'week' => $this->week,
             'status' => $this->initial_date >= now() && $this->end_date <= now() ? 'Activo' : 'Expirado',
-            'author' => $this->user,
+            'author' => $this->user->name,
             'area' => $this->area,
             'startDate' => $this->initial_date,
             'endDate' => $this->end_date,

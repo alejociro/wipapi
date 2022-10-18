@@ -21,14 +21,15 @@ class CloneAreaPlanAction extends Action
 {
     public function execute(): self
     {
-        $planMain = AreaPlan::find($this->data['area_plan_id']);
+        /** @var AreaPlan $planMain */
+        $planMain = $this->data['area_plan'];
         $this->setModel(new AreaPlanClone());
         $this->model->question = $planMain->question;
         $this->model->orientations = $planMain->orientations;
         $this->model->adaptations = $planMain->adaptations;
-        $this->model->user_clone = $this->data['user_id'];
-        $this->model->group_id = $this->data['group_id'];
-        $this->model->area_plan_id = $this->data['area_plan_id'];
+        $this->model->user_clone = 1;
+        $this->model->group_id = 1;
+        $this->model->area_plan_id = $planMain->getKey();
         $this->model->save();
 
         $this->tasks();
@@ -42,7 +43,7 @@ class CloneAreaPlanAction extends Action
 
     public function tasks(): void
     {
-        $tasks = TasksAreaPlan::all()->where('area_plan_id', $this->data['area_plan_id']);
+        $tasks = $this->data['area_plan']->planTasks;
         foreach ($tasks as $task) {
             $taskClone = new PlanCloneTask();
             $taskClone->area_plan_clone_id = $this->model->getKey();
@@ -54,7 +55,7 @@ class CloneAreaPlanAction extends Action
 
     public function activities(): void
     {
-        $activities = ActivitiesAreaPlan::all()->where('area_plan_id', $this->data['area_plan_id']);
+        $activities = $this->data['area_plan']->planActivities;
         foreach ($activities as $activity){
             $activityClone = new PlanCloneActivitie();
             $activityClone->title = $activity->title;
@@ -66,7 +67,7 @@ class CloneAreaPlanAction extends Action
 
     public function annexes(): void
     {
-        $annexes = AnnexesAreaPlan::all()->where('area_plan_id', $this->data['area_plan_id']);
+        $annexes = $this->data['area_plan']->planAnnexes;
         foreach ($annexes as $annex){
             $annexClone = new PlanCloneAnnexe();
             $annexClone->title = $annex->title;
@@ -79,7 +80,7 @@ class CloneAreaPlanAction extends Action
 
     public function references(): void
     {
-        $references = ReferencesAreaPlan::all()->where('area_plan_id', $this->data['area_plan_id']);
+        $references = $this->data['area_plan']->planReferences;
         foreach ($references as $reference){
             $referenceClone = new PlanCloneReference();
             $referenceClone->title = $reference->title;
@@ -95,7 +96,7 @@ class CloneAreaPlanAction extends Action
         $creativeAgenda = new PlanCloneCreativeAgenda();
         $creativeAgenda->area_plan_clone_id = $this->model->getKey();
         $creativeAgenda->save();
-        $agendaId = PlanCreativeAgenda::first()->where('area_plan_id', $this->data['area_plan_id']);
+        $agendaId = $this->data['area_plan']->planCreativeAgenda()->with('activities')->first();
         $activities = $agendaId->activities();
         foreach ($activities as $activity){
             $creativityActivity = new PlanCloneActivitiesCreativeAgenda();

@@ -54,13 +54,28 @@ class AreaPlan extends Model
         return $this->hasMany(PlanCompetence::class);
     }
 
+    public function planActivities(): HasMany
+    {
+        return $this->hasMany(ActivitiesAreaPlan::class);
+    }
+
     public function planCreativeAgenda(): HasMany
     {
         return $this->hasMany(PlanCreativeAgenda::class);
     }
 
+    public function sons(): HasMany
+    {
+        return $this->hasMany(AreaPlanClone::class);
+    }
+
     public function area(): BelongsTo
     {
         return $this->belongsTo(Area::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -10,8 +10,10 @@ use App\Http\Requests\AreaPlanRequest;
 use App\Http\Resources\Api\AreaPlanResource;
 use App\Http\Resources\Api\AreaPlansResource;
 use App\Models\Area;
+use App\Models\Group;
 use App\Models\AreaPlan;
 use App\Models\Grade;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -25,11 +27,9 @@ class AreaPlanController extends Controller
        return AreaPlansResource::collection($plans);
     }
 
-    public function indexByGrade(Request $request, Area $area): AnonymousResourceCollection
+    public function indexByGrade(Request $request, Grade $grade, Area $area): AnonymousResourceCollection
     {
-        $plans = AreaPlan::where('name', 'like', '%' . $request->get('search') . '%')
-            ->where('area_id', $area->getKey())
-            ->get();
+        $plans =  $area->areaPlans()->where('name', 'like', '%' . $request->get('search') . '%')->get();
 
        return AreaPlansResource::collection($plans);
     }
@@ -51,9 +51,8 @@ class AreaPlanController extends Controller
 
     }
 
-    public function show($id)
+    public function show(AreaPlan $areaPlan)
     {
-     $areaPlan = AreaPlan::find($id);
       return  AreaPlanResource::make($areaPlan);
     }
 
@@ -91,9 +90,11 @@ class AreaPlanController extends Controller
         //
     }
 
-    public function clone(AreaPlanCloneRequest $request, CloneAreaPlanAction $action)
+    public function clone(AreaPlan $plan, CloneAreaPlanAction $action)
     {
-        $areaPlanClone = $action->setData($request->validated())->execute()->getModel();
+        $areaPlanClone = $action->setData([
+            'area_plan' => $plan
+        ])->execute()->getModel();
 
         return response()->json(
             [

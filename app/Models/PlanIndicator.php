@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PlanIndicator extends Model
 {
@@ -13,4 +14,9 @@ class PlanIndicator extends Model
         'area_plan_id',
         'indicator_id'
     ];
+
+    public function indicator(): BelongsTo
+    {
+        return $this->belongsTo(Indicator::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AreaPlanClone extends Model
 {
@@ -14,6 +15,12 @@ class AreaPlanClone extends Model
         'orientations',
         'adaptations',
         'user_clone',
+        'group_id',
         'area_plan_id'
     ];
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
+    }
 }
