@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AreaPlanController;
 use App\Http\Controllers\Api\AreasController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CompetencesController;
 use App\Http\Controllers\Api\GradesController;
 use App\Http\Controllers\Api\IndicatorsController;
@@ -24,3 +25,8 @@ Route::get('grades/{grade}', [GradesController::class, 'show'])->name('grades.sh
 Route::get('areas/{area}', [AreasController::class, 'show'])->name('areas.show');
 Route::post('area-plan-clone/{plan}',[AreaPlanController::class, 'clone']);
 
+
+Route::group(['middleware' => ['cors', 'json.response']], function () {
+    Route::post('/login', [AuthController::class, 'login'])->name('login.api');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.api');
+});
