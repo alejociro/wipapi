@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\ActivitiesCreativeAgendaCloneController;
 use App\Http\Controllers\Api\AreaPlanController;
 use App\Http\Controllers\Api\AreasController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CheckController;
 use App\Http\Controllers\Api\CompetencesController;
 use App\Http\Controllers\Api\GradesController;
 use App\Http\Controllers\Api\IndicatorsController;
@@ -24,7 +26,9 @@ Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
 Route::get('grades/{grade}', [GradesController::class, 'show'])->name('grades.show');
 Route::get('areas/{area}', [AreasController::class, 'show'])->name('areas.show');
 Route::post('area-plan-clone/{plan}',[AreaPlanController::class, 'clone']);
-
+Route::patch('check-activitie/{activitie}', [CheckController::class, 'checkActivity'])->name('activitie.check');
+Route::patch('check-task/{task}', [CheckController::class, 'checkTask'])->name('task.check');
+Route::patch('area-plan-clone/creative-agenda/{activitie}', [ActivitiesCreativeAgendaCloneController::class, 'UpdateDescription'])->name('change.activitie.description');
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login.api');
