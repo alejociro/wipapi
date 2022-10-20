@@ -12,27 +12,27 @@ class SubjectsSeeder extends Seeder
     {
         Subject::create([
             'name' => 'geometria',
-            'area_id' => 1,
+            'area_id' => 4,
         ]);
 
         Subject::create([
             'name' => 'trigonometria',
-            'area_id' => 1,
+            'area_id' => 4,
         ]);
 
         Subject::create([
             'name' => 'Numeros',
+            'area_id' => 4,
+        ]);
+
+        Subject::create([
+            'name' => 'lengua extranjera',
             'area_id' => 1,
         ]);
 
         Subject::create([
-            'name' => 'lengua',
-            'area_id' => 2,
-        ]);
-
-        Subject::create([
-            'name' => 'Ingles',
-            'area_id' => 2,
+            'name' => 'Lengua castellana',
+            'area_id' => 1,
         ]);
 
         Subject::create([

@@ -13,19 +13,19 @@ class UsersSeeder extends Seeder
         User::create([
             'name' => 'Pilar',
             'email' => 'pilar@gmail.com',
-            'password' => 'pilar123'
+            'password' => '$2y$10$4.aepK/TULOQI2sbsywX0OLK4WF4/MPdQ9U4qyr3XMDaRcmYEy5Uq',
         ]);
 
         User::create([
             'name' => 'Claudia',
             'email' => 'claudia@gmail.com',
-            'password' => 'claudia123'
+            'password' => '$2y$10$4.aepK/TULOQI2sbsywX0OLK4WF4/MPdQ9U4qyr3XMDaRcmYEy5Uq',
         ]);
 
         User::create([
             'name' => 'Jorge',
             'email' => 'jorge@gmail.com',
-            'password' => 'jorge123'
+            'password' => '$2y$10$4.aepK/TULOQI2sbsywX0OLK4WF4/MPdQ9U4qyr3XMDaRcmYEy5Uq',
         ]);
     }
 }

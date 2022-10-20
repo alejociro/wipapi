@@ -16,7 +16,7 @@ class TopicsResource extends JsonResource
     {
         return [
             'key' => $this->getKey(),
-            'label' => $this->name,
+            'label' => $this->subject->name . ' - ' . $this->name,
         ];
     }
 }

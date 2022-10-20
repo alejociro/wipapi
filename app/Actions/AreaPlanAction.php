@@ -9,7 +9,6 @@ use App\Models\AreaPlan;
 use App\Models\PlanCompetence;
 use App\Models\PlanCreativeAgenda;
 use App\Models\PlanIndicator;
-use App\Models\RecommendationsAreaPlan;
 use App\Models\ReferencesAreaPlan;
 use App\Models\TasksAreaPlan;
 use App\Models\TopicsAreaPlan;
@@ -21,13 +20,13 @@ class AreaPlanAction extends Action
         $this->setModel(new AreaPlan());
         $this->model->name = $this->data['name'];
         $this->model->week = $this->data['week'];
-        $this->model->user_id = $this->data['user_id'];
+        $this->model->user_id = auth()->id();
         $this->model->area_id = $this->data['area_id'];
         $this->model->question = $this->data['question'];
         $this->model->initial_date = $this->data['initial_date'];
         $this->model->end_date = $this->data['end_date'];
-        $this->model->orientations = json_encode($this->data['orientations'], true);
-        $this->model->adaptations = json_encode($this->data['adaptations'], true);
+        $this->model->orientations = json_encode($this->transformRecomendations($this->data['orientations']), true);
+        $this->model->adaptations = json_encode($this->transformRecomendations($this->data['adaptations']), true);
         $this->model->save();
 
         $this->indicators();
@@ -44,20 +43,20 @@ class AreaPlanAction extends Action
 
     public function indicators(): void
     {
-        foreach ($this->data['performance_indicators'] as $parentId) {
+        foreach ($this->data['performance_indicators'] as $indicatorKey) {
             $indicator = new PlanIndicator();
             $indicator->area_plan_id = $this->model->getKey();
-            $indicator->indicator_id = $parentId;
+            $indicator->indicator_id = $indicatorKey['key'];
             $indicator->save();
         }
     }
 
     public function competences(): void
     {
-        foreach ($this->data['performance_competences'] as $parentId) {
+        foreach ($this->data['performance_competences'] as $keyCompetence) {
             $competence = new PlanCompetence();
             $competence->area_plan_id = $this->model->getKey();
-            $competence->competence_id = $parentId;
+            $competence->competence_id = $keyCompetence['key'];
             $competence->save();
         }
     }
@@ -68,7 +67,7 @@ class AreaPlanAction extends Action
             $task = new TasksAreaPlan();
             $task->area_plan_id = $this->model->getKey();
             $task->title = $taskInfo['title'];
-            $task->description = $taskInfo['description'];
+            $task->description = $taskInfo['value'];
             $task->save();
         }
     }
@@ -77,7 +76,7 @@ class AreaPlanAction extends Action
     {
         foreach ($this->data['activities'] as $activityInfo){
           $activity = new ActivitiesAreaPlan();
-          $activity->title = $activityInfo['title'];
+          $activity->title = $activityInfo['name'];
           $activity->description = $activityInfo['description'];
           $activity->area_plan_id = $this->model->getKey();
           $activity->save();
@@ -117,7 +116,7 @@ class AreaPlanAction extends Action
             $creativityActivity = new ActiviesCreativeAgenda();
             $creativityActivity->plan_creative_agenda_id = $creativeAngeda->getKey();
             $creativityActivity->title = $creativeInfo['title'];
-            $creativityActivity->description = $creativeInfo['description'];
+            $creativityActivity->description = $creativeInfo['value'];
             $creativityActivity->save();
         }
     }
@@ -127,10 +126,13 @@ class AreaPlanAction extends Action
         foreach ($this->data['performance_topics'] as $topicInfo) {
             $topic = new TopicsAreaPlan();
             $topic->area_plan_id = $this->model->getKey();
-            $topic->topic_id = $topicInfo['topic_id'];
-            $topic->ideas = $topicInfo['ideas'];
-            $topic->description = $topicInfo['description'];
+            $topic->topic_id = $topicInfo['key'];
             $topic->save();
         }
+    }
+
+    protected function transformRecomendations(array $orientations): array
+    {
+        return array_map(fn ($item) => $item['label'], $orientations);
     }
 }

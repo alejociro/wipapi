@@ -13,7 +13,8 @@ use App\Http\Controllers\Api\TopicsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'cors'])->group(function () {
-    Route::apiResource('area-plan',AreaPlanController::class);
+    Route::apiResource('area-plan',AreaPlanController::class)->except('store');
+    Route::post('area/{area}/area-plan', [AreaPlanController::class, 'store'])->name('area-plan.store');
     Route::get('area-plan/{area}/indicators', [IndicatorsController::class, 'index'])->name('indicators.index');
     Route::get('area-plan/{area}/competences', [CompetencesController::class, 'index'])->name('competences.index');
     Route::get('area-plan/{area}/topics', [TopicsController::class, 'index'])->name('topics.index');
@@ -25,7 +26,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::post('area-plan-clone/{plan}',[AreaPlanController::class, 'clone']);
     Route::get('area-plan-clones/{clone}',[AreaPlanCloneController::class, 'show']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.api');
-    Route::patch('check-activitie/{activitie}', [CheckController::class, 'checkActivity'])->name('activitie.check');
+    Route::patch('check-activity/{activitie}', [CheckController::class, 'checkActivity'])->name('activitie.check');
     Route::patch('check-task/{task}', [CheckController::class, 'checkTask'])->name('task.check');
     Route::patch('area-plan-clone/creative-agenda/{activitie}', [ActivitiesCreativeAgendaCloneController::class, 'UpdateDescription'])->name('change.activitie.description');
 });

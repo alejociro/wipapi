@@ -12,11 +12,17 @@ class Group extends Model
 
     protected $fillable = [
         'letter',
-        'grade_id'
+        'grade_id',
+        'user_id',
     ];
 
     public function grade(): BelongsTo
     {
         return $this->belongsTo(Grade::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -5,15 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Actions\AreaPlanAction;
 use App\Actions\CloneAreaPlanAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AreaPlanCloneRequest;
 use App\Http\Requests\AreaPlanRequest;
 use App\Http\Resources\Api\AreaPlanResource;
 use App\Http\Resources\Api\AreaPlansResource;
 use App\Models\Area;
-use App\Models\Group;
 use App\Models\AreaPlan;
 use App\Models\Grade;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -34,9 +31,9 @@ class AreaPlanController extends Controller
        return AreaPlansResource::collection($plans);
     }
 
-    public function store(AreaPlanRequest $request, AreaPlanAction $action)
+    public function store(AreaPlanRequest $request, Area $area, AreaPlanAction $action)
     {
-        $areaPlan = $action->setData($request->validated())->execute()->getModel();
+        $areaPlan = $action->setData(array_merge($request->validated(), ['area_id' => $area->getKey()]))->execute()->getModel();
 
         return response()->json(
             [

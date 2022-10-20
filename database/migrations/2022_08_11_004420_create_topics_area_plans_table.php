@@ -12,8 +12,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('topic_id');
             $table->unsignedBigInteger('area_plan_id');
-            $table->text('description');
-            $table->text('ideas');
             $table->timestamps();
 
             $table->foreign('topic_id')

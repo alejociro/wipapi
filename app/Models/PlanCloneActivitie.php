@@ -12,6 +12,7 @@ class PlanCloneActivitie extends Model
     protected $fillable = [
       'title',
       'description',
+      'done',
       'area_plan_clone_id'
     ];
 }
