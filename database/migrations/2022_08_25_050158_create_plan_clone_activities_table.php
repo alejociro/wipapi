@@ -12,12 +12,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->boolean('done')->default(false);
             $table->unsignedBigInteger('area_plan_clone_id');
             $table->timestamps();
 
             $table->foreign('area_plan_clone_id')
                 ->on('area_plan_clones')
-                ->references('id');
+                ->references('id')
+                ->cascadeOnDelete();
         });
     }
 

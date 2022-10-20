@@ -17,7 +17,8 @@ return new class extends Migration
 
             $table->foreign('clone_agenda_id')
                 ->on('plan_clone_creative_agendas')
-                ->references('id');
+                ->references('id')
+                ->cascadeOnDelete();
         });
     }
 

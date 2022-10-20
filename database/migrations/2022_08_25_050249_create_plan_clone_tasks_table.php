@@ -12,16 +12,19 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->boolean('done')->default(false);
             $table->unsignedBigInteger('activity_plan_clone_id')->nullable();
             $table->unsignedBigInteger('area_plan_clone_id');
             $table->timestamps();
 
             $table->foreign('area_plan_clone_id')
                 ->on('area_plan_clones')
-                ->references('id');
+                ->references('id')
+                ->cascadeOnDelete();
             $table->foreign('activity_plan_clone_id')
                 ->on('plan_clone_activities')
-                ->references('id');
+                ->references('id')
+                ->cascadeOnDelete();
         });
     }
 

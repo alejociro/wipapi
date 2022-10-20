@@ -18,7 +18,8 @@ return new class extends Migration
 
             $table->foreign('area_plan_clone_id')
                 ->on('area_plan_clones')
-                ->references('id');
+                ->references('id')
+                ->cascadeOnDelete();
         });
     }
 
