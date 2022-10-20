@@ -27,8 +27,8 @@ class CloneAreaPlanAction extends Action
         $this->model->question = $planMain->question;
         $this->model->orientations = $planMain->orientations;
         $this->model->adaptations = $planMain->adaptations;
-        $this->model->user_clone = 1;
-        $this->model->group_id = 1;
+        $this->model->user_clone = auth()->id();
+        $this->model->group_id = auth()->user()->group_id;
         $this->model->area_plan_id = $planMain->getKey();
         $this->model->save();
 
@@ -97,7 +97,7 @@ class CloneAreaPlanAction extends Action
         $creativeAgenda->area_plan_clone_id = $this->model->getKey();
         $creativeAgenda->save();
         $agendaId = $this->data['area_plan']->planCreativeAgenda()->with('activities')->first();
-        $activities = $agendaId->activities();
+        $activities = $agendaId->activities;
         foreach ($activities as $activity){
             $creativityActivity = new PlanCloneActivitiesCreativeAgenda();
             $creativityActivity->title = $activity['title'];
