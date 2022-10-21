@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('week',55);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('area_id');
-            $table->string('question');
+            $table->text('question');
             $table->json('orientations');
             $table->json('adaptations');
             $table->timestamp('initial_date')->nullable();

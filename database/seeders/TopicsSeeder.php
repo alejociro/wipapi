@@ -46,18 +46,94 @@ class TopicsSeeder extends Seeder
         ]);
 
         Topic::create([
-            'name' => 'Leer',
+            'name' => 'Greetings and farewells',
             'subject_id' => 4
         ]);
 
         Topic::create([
-            'name' => 'Cantar',
+            'name' => 'Family',
             'subject_id' => 4
         ]);
 
         Topic::create([
-            'name' => 'Valores',
+            'name' => 'Classroom',
+            'subject_id' => 4
+        ]);
+
+        Topic::create([
+            'name' => 'Alphabet',
+            'subject_id' => 4
+        ]);
+
+        Topic::create([
+            'name' => 'Colors',
+            'subject_id' => 4
+        ]);
+
+        Topic::create([
+            'name' => 'Toys',
+            'subject_id' => 4
+        ]);
+
+        Topic::create([
+            'name' => 'Observación y descripción',
             'subject_id' => 5
         ]);
+
+        Topic::create([
+            'name' => 'Lectura y escritura no convencional de diferentes textos',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'La comunicación y expresión oral (narración de experiencias)',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Textos narrativos',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Discusión',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Pictogramas y jeroglificos',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Nombres de objetos cotidianos',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Descripción',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Lectura y escritura de diferentes textos',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Producción de textos',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Narración',
+            'subject_id' => 5
+        ]);
+
+        Topic::create([
+            'name' => 'Obra de teatro, poesía, canciones',
+            'subject_id' => 5
+        ]);
+
     }
 }

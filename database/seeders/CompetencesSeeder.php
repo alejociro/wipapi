@@ -41,22 +41,52 @@ class CompetencesSeeder extends Seeder
         ]);
 
         Competence::create([
-            'description' => 'El sabe hacer la tarea de manera correcta juntos a sus compañeros',
+            'description' => 'Competencia lingüística.',
             'subject_id' => 4,
         ]);
 
         Competence::create([
-            'description' => 'El estudiante comparte de manera correcta la socialización a sus compañeros',
+            'description' => 'Competencia pragmática.',
             'subject_id' => 4,
         ]);
 
         Competence::create([
-            'description' => 'El sabe hacer la tarea de manera correcta juntos a sus compañeros',
+            'description' => 'Competencia sociolingüística.',
+            'subject_id' => 4,
+        ]);
+
+        Competence::create([
+            'description' => 'Situación de aprendizaje: Getting to know me, my classroom, fruits, pets and toys.',
+            'subject_id' => 4,
+        ]);
+
+        Competence::create([
+            'description' => 'Gramatical o sintáctica',
             'subject_id' => 5,
         ]);
 
         Competence::create([
-            'description' => 'El estudiante comparte de manera correcta la socialización a sus compañeros',
+            'description' => 'Textual',
+            'subject_id' => 5,
+        ]);
+
+        Competence::create([
+            'description' => 'Semántica',
+            'subject_id' => 5,
+        ]);
+
+        Competence::create([
+            'description' => 'Pragmática o sociocultural',
+            'subject_id' => 5,
+        ]);
+
+        Competence::create([
+            'description' => 'Enciclopédia',
+            'subject_id' => 5,
+        ]);
+
+        Competence::create([
+            'description' => 'Poética y literaria',
             'subject_id' => 5,
         ]);
     }
