@@ -64,7 +64,9 @@ class TeachersController extends Controller
 
     public function destroy(Teacher $teacher)
     {
+        $user = $teacher->user();
         $teacher->delete();
+        $user->delete();
 
         return response()->json(
             [
