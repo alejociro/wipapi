@@ -20,7 +20,7 @@ class TeachersResource extends JsonResource
             'email' => $this->user->email,
             'group_id' => $this->group_id,
             'grade_id' => $this->group->grade_id,
-            'plans' => $this->group->plans,
+            'plans' => $this->group->plans()->with('areaPlan')->get(),
             'group_name' => $this->group->grade->name . ' - ' . $this->group->letter,
             'createdAt' => $this->created_at->format('Y-m-d h:m:s'),
             'updatedAt' => $this->updated_at->format('Y-m-d h:m:s')
