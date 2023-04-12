@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\CheckController;
 use App\Http\Controllers\Api\CompetencesController;
 use App\Http\Controllers\Api\GradesController;
 use App\Http\Controllers\Api\IndicatorsController;
+use App\Http\Controllers\Api\TeachersController;
 use App\Http\Controllers\Api\TopicsController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::patch('check-activity/{activitie}', [CheckController::class, 'checkActivity'])->name('activitie.check');
     Route::patch('check-task/{task}', [CheckController::class, 'checkTask'])->name('task.check');
     Route::patch('area-plan-clone/creative-agenda/{activitie}', [ActivitiesCreativeAgendaCloneController::class, 'UpdateDescription'])->name('change.activitie.description');
+    Route::apiResource('teachers', TeachersController::class);
 });
 
 Route::group(['middleware' => ['cors']], function () {
