@@ -9,6 +9,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Hash;
 
 class TeachersController extends Controller
 {
@@ -22,6 +23,7 @@ class TeachersController extends Controller
     public function store(TeacherRequest $request)
     {
         $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
         $user = new User($data);
         $user->save();
         $teacher = new Teacher(['group_id' => $data['group_id'], 'user_id' => $user->id]);
@@ -44,7 +46,11 @@ class TeachersController extends Controller
 
     public function update(TeacherRequest $request, Teacher $teacher)
     {
-        $teacher->update($request->validated());
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
+        $teacher->user->update($data);
+
+        $teacher->update(['group_id' => $data['group_id'], 'user_id' => $teacher->user->id]);
 
         return response()->json(
             [
