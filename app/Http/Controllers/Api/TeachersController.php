@@ -32,9 +32,12 @@ class TeachersController extends Controller
         return response()->json(
             [
                 'status' => [
-                    'status' => 200,
+                    'status' => 'OK',
                     'message' => 'Profesor creado exitosamente',
                 ],
+                'data' => [
+                    'id' => $teacher->getKey()
+                ]
             ]
         );
     }
@@ -55,7 +58,7 @@ class TeachersController extends Controller
         return response()->json(
             [
                 'status' => [
-                    'status' => 200,
+                    'status' => 'OK',
                     'message' => 'Profesor actualzado exitosamente',
                 ],
             ]
@@ -71,7 +74,7 @@ class TeachersController extends Controller
         return response()->json(
             [
                 'status' => [
-                    'status' => 200,
+                    'status' => 'OK',
                     'message' => 'Profesor eliminado exitosamente',
                 ],
             ]

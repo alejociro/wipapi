@@ -18,7 +18,7 @@ class Teacher extends Model
         'user_id'
     ];
 
-    public function groups(): BelongsTo
+    public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
     }

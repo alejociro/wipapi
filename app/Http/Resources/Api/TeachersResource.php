@@ -19,6 +19,9 @@ class TeachersResource extends JsonResource
             'name' => $this->user->name,
             'email' => $this->user->email,
             'group_id' => $this->group_id,
+            'grade_id' => $this->group->grade_id,
+            'plans' => $this->group->plans,
+            'group_name' => $this->group->grade->name . ' - ' . $this->group->letter,
             'createdAt' => $this->created_at->format('Y-m-d h:m:s'),
             'updatedAt' => $this->updated_at->format('Y-m-d h:m:s')
         ];

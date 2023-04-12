@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CheckController;
 use App\Http\Controllers\Api\CompetencesController;
 use App\Http\Controllers\Api\GradesController;
+use App\Http\Controllers\Api\GroupsController;
 use App\Http\Controllers\Api\IndicatorsController;
 use App\Http\Controllers\Api\TeachersController;
 use App\Http\Controllers\Api\TopicsController;
@@ -22,6 +23,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::get('grades/{grade}/areas', [AreasController::class, 'index'])->name('areas.index');
     Route::get('grades/{grade}/areas/{area:id}/area-plan', [AreaPlanController::class, 'indexByGrade'])->name('grades.areas.area_plan.index');
     Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
+    Route::get('groups', [GroupsController::class, 'index'])->name('groups.index');
     Route::get('grades/{grade}', [GradesController::class, 'show'])->name('grades.show');
     Route::get('areas/{area}', [AreasController::class, 'show'])->name('areas.show');
     Route::post('area-plan-clone/{plan}',[AreaPlanController::class, 'clone']);
