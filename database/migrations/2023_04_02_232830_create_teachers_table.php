@@ -10,16 +10,17 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->unsignedBigInteger('group_id');
+            $table->unsignedBigInteger('user_id');
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('group_id')
                 ->on('groups')
+                ->references('id');
+
+            $table->foreign('user_id')
+                ->on('users')
                 ->references('id');
         });
     }

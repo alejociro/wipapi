@@ -14,7 +14,8 @@ class Teacher extends Model
         'name',
         'email',
         'password',
-        'group_id'
+        'group_id',
+        'user_id'
     ];
 
     public function groups(): BelongsTo
