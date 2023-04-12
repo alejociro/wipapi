@@ -16,10 +16,10 @@ class TeachersResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
+            'name' => $this->user->name,
+            'email' => $this->user->email,
             'group_id' => $this->group_id,
-            'password' => $this->password,
+            'password' => $this->user->password,
             'createdAt' => $this->created_at->format('Y-m-d h:m:s'),
             'updatedAt' => $this->updated_at->format('Y-m-d h:m:s')
         ];
