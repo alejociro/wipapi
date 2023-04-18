@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\GroupsController;
 use App\Http\Controllers\Api\IndicatorsController;
 use App\Http\Controllers\Api\TeachersController;
 use App\Http\Controllers\Api\TopicsController;
+use App\Http\Controllers\Api\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'cors'])->group(function () {
@@ -23,6 +24,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::get('grades/{grade}/areas', [AreasController::class, 'index'])->name('areas.index');
     Route::get('grades/{grade}/areas/{area:id}/area-plan', [AreaPlanController::class, 'indexByGrade'])->name('grades.areas.area_plan.index');
     Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
+    Route::get('grades/{grade}/subjects', [SubjectController::class, 'index'])->name('subjects.index');
     Route::get('groups', [GroupsController::class, 'index'])->name('groups.index');
     Route::get('grades/{grade}', [GradesController::class, 'show'])->name('grades.show');
     Route::get('areas/{area}', [AreasController::class, 'show'])->name('areas.show');
