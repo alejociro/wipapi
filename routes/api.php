@@ -23,8 +23,8 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::get('area-plan/{area}/topics', [TopicsController::class, 'index'])->name('topics.index');
     Route::get('grades/{grade}/areas', [AreasController::class, 'index'])->name('areas.index');
     Route::post('grades/{grade}/areas', [AreasController::class, 'store'])->name('areas.post');
-    Route::patch('grades/{grade}/areas', [AreasController::class, 'update'])->name('areas.update');
-    Route::delete('grades/{grade}/areas', [AreasController::class, 'destroy'])->name('areas.delete');
+    Route::patch('grades/{grade}/areas/{area}', [AreasController::class, 'update'])->name('areas.update');
+    Route::delete('grades/{grade}/areas/{area}', [AreasController::class, 'destroy'])->name('areas.delete');
     Route::get('grades/{grade}/areas/{area:id}/area-plan', [AreaPlanController::class, 'indexByGrade'])->name('grades.areas.area_plan.index');
     Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
     Route::get('grades/{grade}/subjects', [SubjectController::class, 'index'])->name('subjects.index');
