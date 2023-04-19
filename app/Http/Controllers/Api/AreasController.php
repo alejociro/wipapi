@@ -26,6 +26,7 @@ class AreasController extends Controller
     {
         $data = [
             'name' => $request->validated()['name'],
+            'image' => $request->validated()['image'],
             'grade_id' => $grade->getKey()
         ];
 
