@@ -15,7 +15,7 @@ class AreaRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'image' => 'required|string'
+            'image' => 'string'
         ];
     }
 }
