@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AreaRequest;
 use App\Http\Resources\Api\AreasResource;
 use App\Models\Area;
 use App\Models\Grade;
@@ -21,9 +22,14 @@ class AreasController extends Controller
         return AreasResource::collection($areas);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(AreaRequest $request, Grade $grade): JsonResponse
     {
-        $area = new Area($request->validated());
+        $data = [
+            'name' => $request->validated()['name'],
+            'grade_id' => $grade->getKey()
+        ];
+
+        $area = new Area($data);
         $area->save();
 
         return response()->json(
