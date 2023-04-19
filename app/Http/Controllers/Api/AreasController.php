@@ -40,7 +40,7 @@ class AreasController extends Controller
                 ],
                 'data' => [
                     'id' => $area->getKey()
-                ]
+                ],
             ]
         );
     }
@@ -60,7 +60,10 @@ class AreasController extends Controller
                     'status' => 'OK',
                     'message' => 'Area actualzada exitosamente',
                 ],
-            ]
+                'data' => [
+                    'id' => $area->getKey()
+                ],
+            ],
         );
     }
 
