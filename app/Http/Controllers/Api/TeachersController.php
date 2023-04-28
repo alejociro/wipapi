@@ -51,7 +51,9 @@ class TeachersController extends Controller
     public function update(TeacherUpdateRequest $request, Teacher $teacher)
     {
         $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
+        if (array_key_exists('password', $data)) {
+            $data['password'] = Hash::make($data['password']);
+        }
         $teacher->user->update($data);
 
         $teacher->update(['group_id' => $data['group_id'], 'user_id' => $teacher->user->id]);
@@ -60,7 +62,7 @@ class TeachersController extends Controller
             [
                 'status' => [
                     'status' => 'OK',
-                    'message' => 'Profesor actualzado exitosamente',
+                    'message' => 'Profesor actualizado exitosamente',
                 ],
             ]
         );
