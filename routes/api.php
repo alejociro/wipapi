@@ -28,6 +28,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::get('grades/{grade}/areas/{area:id}/area-plan', [AreaPlanController::class, 'indexByGrade'])->name('grades.areas.area_plan.index');
     Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
     Route::get('grades/{grade}/subjects', [SubjectController::class, 'index'])->name('subjects.index');
+    Route::post('grades/{grade}/subjects', [SubjectController::class, 'store'])->name('subjects.store');
     Route::get('groups', [GroupsController::class, 'index'])->name('groups.index');
     Route::get('grades/{grade}', [GradesController::class, 'show'])->name('grades.show');
     Route::get('areas/{area}', [AreasController::class, 'show'])->name('areas.show');
