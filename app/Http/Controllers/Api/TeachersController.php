@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
+use App\Http\Requests\TeacherUpdateRequest;
 use App\Http\Resources\Api\TeachersResource;
 use App\Models\Teacher;
 use App\Models\User;
@@ -47,7 +48,7 @@ class TeachersController extends Controller
         return TeachersResource::make($teacher);
     }
 
-    public function update(TeacherRequest $request, Teacher $teacher)
+    public function update(TeacherUpdateRequest $request, Teacher $teacher)
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
