@@ -19,12 +19,12 @@ class SubjectRequest extends FormRequest
             'objetives' => 'required',
             'objetives.*.description' => 'string',
             'competences' => 'required',
-            'competences.*.description' => 'string',
+            'competences.*.label' => 'string',
             'indicators' => 'required',
             'indicators.*.type' => 'required|string',
             'indicators.*.description' => 'required|string',
             'topics' => 'required',
-            'topics.*.name' => 'required|string',
+            'topics.*.label' => 'required|string',
         ];
     }
 }

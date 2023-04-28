@@ -32,7 +32,7 @@ class SubjectStoreAction extends Action
         foreach ($this->data['objetives'] as $objetiveKey) {
             $objetive = new Objetive();
             $objetive->subject_id = $this->model->getKey();
-            $objetive->description = $objetiveKey['description'];
+            $objetive->description = $objetiveKey['label'];
             $objetive->save();
         }
     }
@@ -42,7 +42,7 @@ class SubjectStoreAction extends Action
         foreach ($this->data['competences'] as $competenceKey) {
             $competence = new Competence();
             $competence->subject_id = $this->model->getKey();
-            $competence->description = $competenceKey['description'];
+            $competence->description = $competenceKey['label'];
             $competence->save();
         }
     }
@@ -63,7 +63,7 @@ class SubjectStoreAction extends Action
         foreach ($this->data['topics'] as $topicKey){
             $topic = new Topic();
             $topic->subject_id = $this->model->getKey();
-            $topic->name = $topicKey['name'];
+            $topic->name = $topicKey['label'];
             $topic->save();
         };
     }

@@ -10,6 +10,7 @@ use App\Models\Grade;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Log;
 
 class AreasController extends Controller
 {
@@ -24,13 +25,11 @@ class AreasController extends Controller
 
     public function store(AreaRequest $request, Grade $grade): JsonResponse
     {
-        $data = [
-            'name' => $request->validated()['name'],
-            'image' => $request->validated()['image'],
+        $area = new Area([
+            'name' => $request->get('name'),
+            'image' => $request->get('image'),
             'grade_id' => $grade->getKey()
-        ];
-
-        $area = new Area($data);
+        ]);
         $area->save();
 
         return response()->json(
@@ -51,7 +50,7 @@ class AreasController extends Controller
         return AreasResource::make($area);
     }
 
-    public function update(Request $request, Area $area): JsonResponse
+    public function update(AreaRequest $request, Grade $grade, Area $area): JsonResponse
     {
         $area->update($request->validated());
 
@@ -68,7 +67,7 @@ class AreasController extends Controller
         );
     }
 
-    public function destroy(Area $area)
+    public function destroy(Grade $grade, Area $area)
     {
         $area->delete();
 
