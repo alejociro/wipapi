@@ -17,7 +17,7 @@ class SubjectRequest extends FormRequest
             'name' => 'required|string',
             'area_id' => 'required|integer|exists:areas,id',
             'objetives' => 'required',
-            'objetives.*.description' => 'string',
+            'objetives.*.label' => 'string',
             'competences' => 'required',
             'competences.*.label' => 'string',
             'indicators' => 'required',

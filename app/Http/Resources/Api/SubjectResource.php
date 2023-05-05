@@ -12,9 +12,10 @@ class SubjectResource extends JsonResource
             'id' => $this->getKey(),
             'name' => $this->name,
             'area' => AreasResource::make($this->area),
-            'objetives' => $this->objectives,
+            'grade' => $this->area->grade,
+            'objetives' => $this->objetives,
             'competences' => $this->competences,
-            'indicators' => $this->indicator,
+            'indicators' => $this->indicators,
             'topics' => $this->topics,
         ];
     }
