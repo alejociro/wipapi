@@ -31,6 +31,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
     Route::get('grades/{grade}/subjects', [SubjectController::class, 'index'])->name('subjects.index');
     Route::post('grades/{grade}/subjects', [SubjectController::class, 'store'])->name('subjects.store');
+    Route::patch('grades/{grade}/subjects', [SubjectController::class, 'update'])->name('subjects.update');
     Route::get('subjects/{subject}', [SubjectController::class, 'show'])->name('subjects.show');
     Route::delete('subjects/{subject}', [SubjectController::class, 'destroy'])->name('subject.delete');
     Route::get('groups', [GroupsController::class, 'index'])->name('groups.index');

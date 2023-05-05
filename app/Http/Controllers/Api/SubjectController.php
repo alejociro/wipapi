@@ -29,6 +29,20 @@ class SubjectController extends Controller
             ]);
     }
 
+    public function update(Request $request,Subject $subject)
+    {
+        $subject->update($request->toArray());
+
+        return response()->json(
+            [
+                'status' => [
+                    'status' => 'OK',
+                    'message' => 'Materia actualizada exitosamente',
+                ],
+            ]
+        );
+    }
+
     public function show(Subject $subject): SubjectResource
     {
         return SubjectResource::make($subject);
