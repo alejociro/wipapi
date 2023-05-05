@@ -3,11 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\ObjetivesResource;
+use App\Models\Area;
 use App\Models\Objetive;
 use Illuminate\Http\Request;
 
 class ObjetivesController extends Controller
 {
+    public function index(Request $request, Area $area)
+    {
+        $indicators = Objetive::whereBelongsTo($area->subjects)
+            ->where('description', 'like', '%' . $request->get('search') . '%')
+            ->get();
+
+        return ObjetivesResource::collection($indicators);
+    }
     public function store(Request $request)
     {
         $objetive = new Objetive($request->all());

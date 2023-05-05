@@ -22,6 +22,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::get('area-plan/{area}/indicators', [IndicatorsController::class, 'index'])->name('indicators.index');
     Route::get('area-plan/{area}/competences', [CompetencesController::class, 'index'])->name('competences.index');
     Route::get('area-plan/{area}/topics', [TopicsController::class, 'index'])->name('topics.index');
+    Route::get('area-plan/{area}/objetives', [ObjetivesController::class, 'index'])->name('objetives.index');
     Route::get('grades/{grade}/areas', [AreasController::class, 'index'])->name('areas.index');
     Route::post('grades/{grade}/areas', [AreasController::class, 'store'])->name('areas.post');
     Route::patch('grades/{grade}/areas/{area:id}', [AreasController::class, 'update'])->name('areas.update');
@@ -43,7 +44,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::patch('area-plan-clone/creative-agenda/{activitie}', [ActivitiesCreativeAgendaCloneController::class, 'UpdateDescription'])->name('change.activitie.description');
     Route::apiResource('teachers', TeachersController::class);
     Route::apiResource('competences', CompetencesController::class)->except('index');
-    Route::apiResource('objetives', ObjetivesController::class);
+    Route::apiResource('objetives', ObjetivesController::class)->except('index');
     Route::apiResource('topics', TopicsController::class)->except('index');
     Route::apiResource('indicators', IndicatorsController::class)->except('index');
 });
