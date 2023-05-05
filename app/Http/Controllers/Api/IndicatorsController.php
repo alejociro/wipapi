@@ -19,4 +19,50 @@ class IndicatorsController extends Controller
 
         return IndicatorsResource::collection($indicators);
     }
+
+    public function store(Request $request)
+    {
+        $indicator = new Indicator($request->all());
+        $indicator->save();
+
+        return response()->json(
+            [
+                'status' => [
+                    'status' => 'OK',
+                    'message' => 'Indicador creado exitosamente',
+                ],
+                'data' => [
+                    'id' => $indicator->getKey()
+                ]
+            ]
+        );
+    }
+
+    public function update(Request $request, Indicator $indicator)
+    {
+        $indicator->update($request->all());
+
+        return response()->json(
+            [
+                'status' => [
+                    'status' => 'OK',
+                    'message' => 'Indicador actualizado exitosamente',
+                ],
+            ]
+        );
+    }
+
+    public function destroy(Indicator $indicator)
+    {
+        $indicator->delete();
+
+        return response()->json(
+            [
+                'status' => [
+                    'status' => 'OK',
+                    'message' => 'Indicador eliminado exitosamente',
+                ],
+            ]
+        );
+    }
 }

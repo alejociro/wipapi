@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\CompetencesController;
 use App\Http\Controllers\Api\GradesController;
 use App\Http\Controllers\Api\GroupsController;
 use App\Http\Controllers\Api\IndicatorsController;
+use App\Http\Controllers\Api\ObjetivesController;
 use App\Http\Controllers\Api\TeachersController;
 use App\Http\Controllers\Api\TopicsController;
 use App\Http\Controllers\Api\SubjectController;
@@ -40,6 +41,10 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::patch('check-task/{task}', [CheckController::class, 'checkTask'])->name('task.check');
     Route::patch('area-plan-clone/creative-agenda/{activitie}', [ActivitiesCreativeAgendaCloneController::class, 'UpdateDescription'])->name('change.activitie.description');
     Route::apiResource('teachers', TeachersController::class);
+    Route::apiResource('competences', CompetencesController::class)->except('index');
+    Route::apiResource('objetives', ObjetivesController::class);
+    Route::apiResource('topics', TopicsController::class)->except('index');
+    Route::apiResource('indicators', IndicatorsController::class)->except('index');
 });
 
 Route::group(['middleware' => ['cors']], function () {
