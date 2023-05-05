@@ -34,13 +34,16 @@ class SubjectController extends Controller
         return SubjectResource::make($subject);
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function destroy(Subject $subject)
     {
-
+        $subject->delete();
+        return response()->json(
+            [
+                'status' => [
+                    'status' => 'OK',
+                    'message' => 'Materia eliminado exitosamente',
+                ],
+            ]
+        );
     }
 }

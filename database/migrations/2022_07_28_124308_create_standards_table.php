@@ -16,7 +16,8 @@ return new class extends Migration
 
             $table->foreign('type_standard_id')
                 ->on('type_standards')
-                ->references('id');
+                ->references('id')
+                ->onDelete('cascade');
         });
     }
 
