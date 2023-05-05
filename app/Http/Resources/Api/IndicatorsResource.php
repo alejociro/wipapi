@@ -17,6 +17,8 @@ class IndicatorsResource extends JsonResource
         return [
             'key' => $this->getKey(),
             'label' => $this->type . ' - ' . $this->description,
+            'description' => $this->description,
+            'type' => $this->type,
         ];
     }
 }

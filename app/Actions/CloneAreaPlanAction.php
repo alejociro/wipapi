@@ -28,7 +28,7 @@ class CloneAreaPlanAction extends Action
         $this->model->orientations = $planMain->orientations;
         $this->model->adaptations = $planMain->adaptations;
         $this->model->user_clone = auth()->id();
-        $this->model->group_id = optional(auth()->user()->group)->getKey();
+        $this->model->group_id = optional(auth()->user()->teacher->group)->getKey();
         $this->model->area_plan_id = $planMain->getKey();
         $this->model->save();
 

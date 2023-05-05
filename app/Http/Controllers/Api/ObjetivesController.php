@@ -50,9 +50,9 @@ class ObjetivesController extends Controller
         );
     }
 
-    public function destroy(Objetive $competence)
+    public function destroy(Objetive $objetive)
     {
-        $competence->delete();
+        $objetive->delete();
 
         return response()->json(
             [

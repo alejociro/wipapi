@@ -16,12 +16,13 @@ return new class extends Migration
 
             $table->foreign('area_id')
                 ->on('areas')
-                ->references('id');
+                ->references('id')
+                ->cascadeOnDelete();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('asignatures');
+        Schema::dropIfExists('subjects');
     }
 };
