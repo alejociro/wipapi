@@ -13,7 +13,7 @@ class TopicsController extends Controller
 {
     public function index(Request $request, Area $area)
     {
-        $topics = Topic::whereBelongsTo($area->subjects)
+        $topics = Topic::whereBelongsTo($request->get('subject_id') ? Subject::find($request->get('subject_id')) : $area->subjects)
             ->where('name', 'like', '%' . $request->get('search') . '%')
             ->get();
 

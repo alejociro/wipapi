@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AreaPlansResource extends JsonResource
@@ -18,7 +19,7 @@ class AreaPlansResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'week' => $this->week,
-            'status' => $this->initial_date >= now() && $this->end_date <= now() ? 'Activo' : 'Expirado',
+            'status' => (now()->between(Carbon::createFromDate($this->initial_date),  Carbon::createFromDate($this->end_date))) ? 'ACTIVE' : (Carbon::createFromDate($this->end_date) > now() ? 'COMPLETED' : 'PENDING'),
             'author' => $this->user->name,
             'area' => $this->area,
             'startDate' => $this->initial_date,

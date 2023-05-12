@@ -7,13 +7,14 @@ use App\Http\Resources\Api\IndicatorsResource;
 use App\Models\Area;
 use App\Models\AreaPlan;
 use App\Models\Indicator;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class IndicatorsController extends Controller
 {
     public function index(Request $request, Area $area)
     {
-        $indicators = Indicator::whereBelongsTo($area->subjects)
+        $indicators = Indicator::whereBelongsTo($request->get('subject_id') ? Subject::find($request->get('subject_id')) : $area->subjects)
             ->where('description', 'like', '%' . $request->get('search') . '%')
             ->get();
 

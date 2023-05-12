@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ObjetivesResource;
 use App\Models\Area;
 use App\Models\Objetive;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class ObjetivesController extends Controller
 {
     public function index(Request $request, Area $area)
     {
-        $indicators = Objetive::whereBelongsTo($area->subjects)
+        $indicators = Objetive::whereBelongsTo($request->get('subject_id') ? Subject::find($request->get('subject_id')) : $area->subjects)
             ->where('description', 'like', '%' . $request->get('search') . '%')
             ->get();
 
