@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\AreasController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CheckController;
 use App\Http\Controllers\Api\CompetencesController;
+use App\Http\Controllers\Api\ExportPlanCloneController;
+use App\Http\Controllers\Api\ExportPlanController;
 use App\Http\Controllers\Api\GradesController;
 use App\Http\Controllers\Api\GroupsController;
 use App\Http\Controllers\Api\IndicatorsController;
@@ -47,6 +49,10 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::apiResource('objetives', ObjetivesController::class)->except('index');
     Route::apiResource('topics', TopicsController::class)->except('index');
     Route::apiResource('indicators', IndicatorsController::class)->except('index');
+    Route::get('exportpdf/{areaPlan}', [ExportPlanController::class, 'exportpdf']);
+    Route::get('exportdocx/{areaPlan}', [ExportPlanController::class, 'exportdocx']);
+    Route::get('exportclonepdf/{areaPlan}', [ExportPlanCloneController::class, 'exportpdf']);
+    Route::get('exportclonedocx/{areaPlan}', [ExportPlanCloneController::class, 'exportdocx']);
 });
 
 Route::group(['middleware' => ['cors']], function () {
