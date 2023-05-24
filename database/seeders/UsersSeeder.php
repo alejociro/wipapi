@@ -15,17 +15,5 @@ class UsersSeeder extends Seeder
             'email' => 'pilar@gmail.com',
             'password' => '$2y$10$4.aepK/TULOQI2sbsywX0OLK4WF4/MPdQ9U4qyr3XMDaRcmYEy5Uq',
         ]);
-
-        User::create([
-            'name' => 'Claudia',
-            'email' => 'claudia@gmail.com',
-            'password' => '$2y$10$4.aepK/TULOQI2sbsywX0OLK4WF4/MPdQ9U4qyr3XMDaRcmYEy5Uq',
-        ]);
-
-        User::create([
-            'name' => 'Jorge',
-            'email' => 'jorge@gmail.com',
-            'password' => '$2y$10$4.aepK/TULOQI2sbsywX0OLK4WF4/MPdQ9U4qyr3XMDaRcmYEy5Uq',
-        ]);
     }
 }
